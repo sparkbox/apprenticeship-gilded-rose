@@ -45,6 +45,9 @@ export function updateQuality(items) {
           }
         }
       }
+      if (items[i].quality < 50) {
+        console.log('adding a console.log here for fun')
+      }
     }
     if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
       items[i].sell_in = items[i].sell_in - 1;
