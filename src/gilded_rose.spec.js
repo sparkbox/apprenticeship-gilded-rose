@@ -1,11 +1,15 @@
 import { Item, updateQuality } from './gilded_rose';
 
 describe('`updateQuality`', () => {
-  it.todo("Why won't my test pass?", () => {
+  it("Why won't my test pass?", () => {
     const standardItem = new Item('Haunted Shoe', 10, 10);
     updateQuality([standardItem]);
-    expect(standardItem.sell_in).toBe(4);
+    expect(standardItem.sell_in).toBe(9);
   });
 
-  it.todo('This is a good place for a good test!');
+  it('Updates the quality of aged brie', () => {
+    const testItem = new Item('Aged Brie', 7, 2);
+    updateQuality([testItem])
+    expect(testItem.quality).toBe(3);
+  });
 });
