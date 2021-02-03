@@ -22,4 +22,20 @@ describe('`updateQuality`', () => {
     updateQuality([sulfuras]);
     expect(sulfuras.quality).toBe(50);
   })
+
+  it('Updates the quality of backstage passes', () => {
+    const pass = new Item('Backstage passes to a TAFKAL80ETC concert', 11, 10)
+    const passTenDays = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 8)
+    const passFiveDays = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 15)
+    const passMaximumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', 1, 50)
+    const passPostConcert = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 50)
+    const passMinimumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 0)
+    updateQuality([pass, passTenDays, passFiveDays, passMaximumQuality, passPostConcert, passMinimumQuality])
+    expect(pass.quality).toBe(11)
+    expect(passTenDays.quality).toBe(10)
+    expect(passFiveDays.quality).toBe(18)
+    expect(passMaximumQuality.quality).toBe(50)
+    expect(passPostConcert.quality).toBe(0)
+    expect(passMinimumQuality.quality).toBe(0)
+  })
 });
