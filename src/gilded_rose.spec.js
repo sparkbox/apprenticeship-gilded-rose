@@ -16,4 +16,10 @@ describe('`updateQuality`', () => {
     expect(brieExpired.quality).toBe(12);
     expect(brieHighestQuality.quality).toBe(50);
   });
+
+  it('Updates the quality of sulfuras', () => {
+    const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 50);
+    updateQuality([sulfuras]);
+    expect(sulfuras.quality).toBe(50);
+  })
 });
