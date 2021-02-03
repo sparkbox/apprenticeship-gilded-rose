@@ -8,8 +8,12 @@ describe('`updateQuality`', () => {
   });
 
   it('Updates the quality of aged brie', () => {
-    const testItem = new Item('Aged Brie', 7, 2);
-    updateQuality([testItem])
-    expect(testItem.quality).toBe(3);
+    const brie = new Item('Aged Brie', 7, 2);
+    const brieExpired = new Item('Aged Brie', -1, 10)
+    const brieHighestQuality = new Item('Aged Brie', -1, 50)
+    updateQuality([brie, brieExpired, brieHighestQuality])
+    expect(brie.quality).toBe(3);
+    expect(brieExpired.quality).toBe(12);
+    expect(brieHighestQuality.quality).toBe(50);
   });
 });
