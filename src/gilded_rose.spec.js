@@ -18,9 +18,9 @@ describe('`updateQuality`', () => {
   });
 
   it('Updates the quality of sulfuras', () => {
-    const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 50);
+    const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
     updateQuality([sulfuras]);
-    expect(sulfuras.quality).toBe(50);
+    expect(sulfuras.quality).toBe(80);
   })
 
   it('Updates the quality of backstage passes', () => {
