@@ -38,4 +38,20 @@ describe('`updateQuality`', () => {
     expect(passPostConcert.quality).toBe(0)
     expect(passMinimumQuality.quality).toBe(0)
   })
+
+  it('Updates the quality of normal items', () => {
+    const vest = new Item('+5 Dexterity Vest', 5, 10)
+    const oldVest = new Item('+5 Dexterity Vest', -1, 5)
+    const minimumQualityVest = new Item('+5 Dexterity Vest', -5, 0)
+    const elixir = new Item('Elixir of the Mongoose', 3, 50)
+    const oldElixir = new Item('Elixir of the Mongoose', 0, 28)
+    const minimumQualityElixir = new Item('Elixir of the Mongoose', 0, 0)
+    updateQuality([vest, oldVest, minimumQualityVest, elixir, oldElixir, minimumQualityElixir])
+    expect(vest.quality).toBe(9)
+    expect(oldVest.quality).toBe(3)
+    expect(minimumQualityVest.quality).toBe(0)
+    expect(elixir.quality).toBe(49)
+    expect(oldElixir.quality).toBe(26)
+    expect(minimumQualityElixir.quality).toBe(0)
+  })
 });
