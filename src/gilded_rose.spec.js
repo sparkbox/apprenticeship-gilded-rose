@@ -55,7 +55,7 @@ describe('`updateQuality`', () => {
     expect(minimumQualityElixir.quality).toBe(0)
   })
 
-  it('Updates the quality of conjured items', () => {
+  it.skip('Updates the quality of conjured items', () => {
     const cake = new Item('Conjured Mana Cake', 5, 10)
     const oldCake = new Item('Conjured Mana Cake', -1, 10)
     updateQuality([cake, oldCake])
