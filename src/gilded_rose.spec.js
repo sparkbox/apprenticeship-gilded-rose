@@ -7,11 +7,23 @@ describe('updating of standard items', () => {
     expect(standardItem.sell_in).toBe(4);
   });
 
-  it.todo('decreases the sell_in of a standard item by 1');
+  it.todo('decreases the sell_in of a standard item by 1', () => {
+    const standardItem = new Item('Hand of Thor', 10, 10);
+    updateQuality([standardItem]);
+    expect(standardItem.sell_in).toBe(9);
+  });
 
-  it.todo('decreases the quality of a standard item by 1');
+  it.todo('decreases the quality of a standard item by 1', () => {
+    const standardItem = new Item('Hand of Thor', 10, 30);
+    updateQuality([standardItem]);
+    expect(standardItem.sell_in).toBe(29);
+  });
 
-  it.todo('decreases the quality of a standard item by 2 if the sell_in is less than 0');
+  it.todo('decreases the quality of a standard item by 2 if the sell_in is less than 0', () => {
+    const standardItem = new Item('Hand of Thor', 0, 20);
+    updateQuality([standardItem]);
+    expect(standardItem.sell_in).toBe(18);
+  });
 });
 
 describe('updating of aged brie', () => {
