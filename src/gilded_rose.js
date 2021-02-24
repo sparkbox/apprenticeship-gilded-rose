@@ -55,7 +55,6 @@ export function updateQuality(items) {
           result.push({...items[i], quality: mutateItemQuality(items[i].quality,2)})
         } else {
           result.push({...items[i], quality: mutateItemQuality(items[i].quality)})
-          // items[i].quality = mutateItemQuality(items[i].quality);
         }
     } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
       if (items[i].sell_in <= 0) {
