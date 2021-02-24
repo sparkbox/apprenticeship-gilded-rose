@@ -46,33 +46,42 @@ function mutateItemSellIn(currentSellIn, amount = 1) {
 }
 
 export function updateQuality(items) {
+  const result = []
   for (var i = 0; i < items.length; i++) {
     if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
-      break;
+          result.push(items[i])
     } else if (items[i].name === 'Aged Brie') {
         if (items[i].sell_in < 0) {
-          items[i].quality = mutateItemQuality(items[i].quality, 2);
+          result.push({...items[i], quality: mutateItemQuality(items[i].quality,2)})
         } else {
-          items[i].quality = mutateItemQuality(items[i].quality);
+          result.push({...items[i], quality: mutateItemQuality(items[i].quality)})
         }
     } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
       if (items[i].sell_in <= 0) {
-        items[i].quality = mutateItemQuality(items[i].quality, -(items[i].quality));
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality, -(items[i].quality))})
       } else if (items[i].sell_in < 6) {
-        items[i].quality = mutateItemQuality(items[i].quality, 3);
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality, 3)})
       } else if (items[i].sell_in < 11) {
-        items[i].quality = mutateItemQuality(items[i].quality, 2);
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality,2)})
       } else {
-        items[i].quality = mutateItemQuality(items[i].quality);
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality)})
       }
     } else {
+      //this block will handle all standard items
       if (items[i].sell_in <= 0) {
-        items[i].quality = mutateItemQuality(items[i].quality, -2)
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality,-2)})
       } else {
-        items[i].quality = mutateItemQuality(items[i].quality, -1)
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality,-1)})
       }
     }
-    // handles decrementing of sell in for all items except sulfuras
-    items[i].sell_in = mutateItemSellIn(items[i].sell_in);
+
+    if (items[i].name !== 'Sulfuras, Hand of Ragnaros') {
+      //this will access the current item in results array and update the sell_in value accordingly
+      const currentItem = result.slice(-1)
+      const updatedSellInItem = {...currentItem[0], sell_in: mutateItemSellIn(items[i].sell_in)}
+      result[i] = updatedSellInItem
+    }
+
   }
+  return result
 }
