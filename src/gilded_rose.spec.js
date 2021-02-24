@@ -20,7 +20,7 @@ describe('updating of standard items', () => {
   });
 });
 
-describe('updating of aged brie', () => {
+describe.only('updating of aged brie', () => {
   const agedBrie = new Item('Aged Brie', 2, 0);
 
   afterEach(() => {
@@ -31,12 +31,13 @@ describe('updating of aged brie', () => {
 
   it('increments in quality by 1', () => {
     const agedBrieArray = updateQuality([agedBrie]);
+    console.log(agedBrieArray[0].quality)
     expect(agedBrieArray[0].quality).toBe(1);
   });
 
-  it('decrements the sell_in by 1', () => {
-    updateQuality([agedBrie]);
-    expect(agedBrie.sell_in).toBe(1);
+  it.skip('decrements the sell_in by 1', () => {
+    const agedBrieArray = updateQuality([agedBrie]);
+    expect(agedBrieArray[0].sell_in).toBe(1);
   });
 
   it('does not increase the quality to more than 50', () => {
