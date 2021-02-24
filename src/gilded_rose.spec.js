@@ -20,7 +20,7 @@ describe('updating of standard items', () => {
   });
 });
 
-describe.only('updating of aged brie', () => {
+describe('updating of aged brie', () => {
   const agedBrie = new Item('Aged Brie', 2, 0);
 
   afterEach(() => {
@@ -90,17 +90,17 @@ describe('updating of backstage passes', () => {
   });
 });
 
-describe('updating of sulfuras', () => {
+describe.only('updating of sulfuras', () => {
   const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
 
   it('does not update sell_in', () => {
-    updateQuality([sulfuras]);
-    expect(sulfuras.sell_in).toBe(0);
+    const sulfurasArray = updateQuality([sulfuras]);
+    expect(sulfurasArray[0].sell_in).toBe(0);
   });
 
   it('does not update quality', () => {
-    updateQuality([sulfuras]);
-    expect(sulfuras.quality).toBe(80);
+    const sulfurasArray = updateQuality([sulfuras]);
+    expect(sulfurasArray[0].quality).toBe(80);
   });
 });
 
