@@ -75,6 +75,8 @@ export function updateQuality(items) {
     }
     // handles decrementing of sell in for all items except sulfuras
     items[i].sell_in = mutateItemSellIn(items[i].sell_in);
+
+   
     return result
   }
 }

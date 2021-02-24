@@ -31,7 +31,7 @@ describe.only('updating of aged brie', () => {
 
   it('increments in quality by 1', () => {
     const agedBrieArray = updateQuality([agedBrie]);
-    console.log(agedBrieArray[0].quality)
+    console.log(agedBrieArray[0].quality);
     expect(agedBrieArray[0].quality).toBe(1);
   });
 
