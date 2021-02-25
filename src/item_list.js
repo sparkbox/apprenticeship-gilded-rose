@@ -9,7 +9,7 @@ const items = [
   new Item('Conjured Mana Cake', 3, 6),
 ];
 
-export default function getHtmlListFromArray(itemArray) {
+export function getHtmlListFromArray(itemArray) {
   let htmlOutput = '<ol>';
   itemArray.forEach((item) => {
     htmlOutput += `<li>${JSON.stringify(item)}</li>`;

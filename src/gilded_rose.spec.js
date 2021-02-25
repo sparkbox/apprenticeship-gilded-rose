@@ -1,6 +1,5 @@
 import { Item, updateQuality } from './gilded_rose';
-import getHtmlListFromArray from './item_list';
-import {htmlListItems} from './item_list';
+import { htmlListItems, getHtmlListFromArray } from './item_list';
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
@@ -168,7 +167,7 @@ describe('generating ordered lists of items', () => {
     const updatedItemsList = updateQuality(itemsList);
     let updatedItemsHTML = '<ol>';
     updatedItemsList.forEach((item) => {
-      updatedItemsHTML += `<li>${JSON.stringify(item)}</li>`
+      updatedItemsHTML += `<li>${JSON.stringify(item)}</li>`;
     });
     updatedItemsHTML += '</ol>';
     expect(htmlListItems).toBe(updatedItemsHTML);
