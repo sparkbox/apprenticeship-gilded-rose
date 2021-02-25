@@ -67,10 +67,11 @@ export function updateQuality(items) {
         result.push({...items[i], quality: mutateItemQuality(items[i].quality)})
       }
     } else {
+      //this block will handle all standard items
       if (items[i].sell_in <= 0) {
-        items[i].quality = mutateItemQuality(items[i].quality, -2)
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality,-2)})
       } else {
-        items[i].quality = mutateItemQuality(items[i].quality, -1)
+        result.push({...items[i], quality: mutateItemQuality(items[i].quality,-1)})
       }
     }
     // handles decrementing of sell in for all items except sulfuras
