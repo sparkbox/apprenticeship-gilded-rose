@@ -3,20 +3,20 @@ import { Item, updateQuality } from './gilded_rose';
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
     const standardItem = new Item('Hand of Thor', 10, 10);
-    updateQuality([standardItem]);
-    expect(standardItem.sell_in).toBe(9);
+    const standardItemArray = updateQuality([standardItem]);
+    expect(standardItemArray[0].sell_in).toBe(9);
   });
 
   it('decreases the quality of a standard item by 1', () => {
     const standardItem = new Item('Hand of Thor', 10, 30);
-    updateQuality([standardItem]);
-    expect(standardItem.quality).toBe(29);
+    const standardItemArray = updateQuality([standardItem]);
+    expect(standardItemArray[0].quality).toBe(29);
   });
 
   it('decreases the quality of a standard item by 2 if the sell_in is less than 0', () => {
     const standardItem = new Item('Hand of Thor', 0, 20);
-    updateQuality([standardItem]);
-    expect(standardItem.quality).toBe(18);
+    const standardItemArray = updateQuality([standardItem]);
+    expect(standardItemArray[0].quality).toBe(18);
   });
 });
 
