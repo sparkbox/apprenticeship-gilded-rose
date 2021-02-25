@@ -1,4 +1,4 @@
-import { Item } from './gilded_rose';
+import { Item, updateQuality } from './gilded_rose';
 
 const items = [
   new Item('+5 Dexterity Vest', 10, 20),
@@ -9,7 +9,7 @@ const items = [
   new Item('Conjured Mana Cake', 3, 6),
 ];
 
-export default function getHtmlListFromArray(itemArray) {
+export function getHtmlListFromArray(itemArray) {
   let htmlOutput = '<ol>';
   itemArray.forEach((item) => {
     htmlOutput += `<li>${JSON.stringify(item)}</li>`;
@@ -18,4 +18,5 @@ export default function getHtmlListFromArray(itemArray) {
   return htmlOutput;
 }
 
-export const htmlListItems = getHtmlListFromArray(items);
+const updatedItems = updateQuality(items);
+export const htmlListItems = getHtmlListFromArray(updatedItems);
