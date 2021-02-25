@@ -74,10 +74,14 @@ export function updateQuality(items) {
         result.push({...items[i], quality: mutateItemQuality(items[i].quality,-1)})
       }
     }
-    // handles decrementing of sell in for all items except sulfuras
-    items[i].sell_in = mutateItemSellIn(items[i].sell_in);
 
-   
+    if (items[i].name !== 'Sulfuras, Hand of Ragnaros') {
+      //this will access the current item in results array and update the sell_in value accordingly
+      const currentItem = result.slice(-1)
+      const updatedSellInItem = {...currentItem[0], sell_in: mutateItemSellIn(items[i].sell_in)}
+      result[i] = updatedSellInItem
+    }
+
     return result
   }
 }
