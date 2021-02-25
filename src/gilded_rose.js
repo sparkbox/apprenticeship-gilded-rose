@@ -49,7 +49,7 @@ export function updateQuality(items) {
   const result = []
   for (var i = 0; i < items.length; i++) {
     if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
-          result.push({...items[i]})
+          result.push(items[i])
     } else if (items[i].name === 'Aged Brie') {
         if (items[i].sell_in < 0) {
           result.push({...items[i], quality: mutateItemQuality(items[i].quality,2)})
