@@ -2,6 +2,10 @@ If you want to get cracking on the JavaScript source then do this:
 
     git clone git@github.com:guyroyse/gilded-rose-javascript.git
 
+To start the Express server, run `npm start` and navigate to:
+
+    http://localhost:3000
+
 Hi and welcome to team Gilded Rose.
 
 As you know, we are a small inn with a prime location in a prominent city ran

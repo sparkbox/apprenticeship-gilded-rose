@@ -1,4 +1,5 @@
 import { Item, updateQuality } from './gilded_rose';
+import getHtmlListFromArray from './item_list';
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
@@ -129,5 +130,29 @@ describe('updating of conjured items', () => {
 
   it.skip('decreases the quality of conjured items by 4', () => {
     expect(oldCake.quality).toBe(6);
+  });
+});
+
+describe('generating ordered lists of items', () => {
+  it('generates an ordered list with one list item', () => {
+    const list = ['Testing'];
+    const testOutput = getHtmlListFromArray(list);
+    expect(testOutput).toBe(`<ol><li>${JSON.stringify('Testing')}</li></ol>`);
+  });
+  it('generates an ordered list with multiple list items', () => {
+    const list = ['Test 1', 'Test 2', 'Test 3'];
+    const testOutput = getHtmlListFromArray(list);
+    expect(testOutput).toBe(`<ol><li>${JSON.stringify('Test 1')}</li><li>${JSON.stringify('Test 2')}</li><li>${JSON.stringify('Test 3')}</li></ol>`);
+  });
+  it('generates an empty ol tag', () => {
+    const emptyList = [];
+    const testOutput = getHtmlListFromArray(emptyList);
+    expect(testOutput).toBe('<ol></ol>');
+  });
+  it('generates an ordered list with an item from the gilded rose', () => {
+    const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
+    const list = [sulfuras];
+    const testOutput = getHtmlListFromArray(list);
+    expect(testOutput).toBe(`<ol><li>${JSON.stringify(sulfuras)}</li></ol>`);
   });
 });
