@@ -82,6 +82,6 @@ export function updateQuality(items) {
       result[i] = updatedSellInItem
     }
 
-    return result
   }
+  return result
 }
