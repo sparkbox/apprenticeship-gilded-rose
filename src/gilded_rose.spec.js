@@ -1,5 +1,6 @@
 import { Item, updateQuality } from './gilded_rose';
 import getHtmlListFromArray from './item_list';
+import {htmlListItems} from './item_list';
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
@@ -154,5 +155,22 @@ describe('generating ordered lists of items', () => {
     const list = [sulfuras];
     const testOutput = getHtmlListFromArray(list);
     expect(testOutput).toBe(`<ol><li>${JSON.stringify(sulfuras)}</li></ol>`);
+  });
+  it('updates items and generates an ordered list with the updated items', () => {
+    const itemsList = [
+      new Item('+5 Dexterity Vest', 10, 20),
+      new Item('Aged Brie', 2, 0),
+      new Item('Elixir of the Mongoose', 5, 7),
+      new Item('Sulfuras, Hand of Ragnaros', 0, 80),
+      new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
+      new Item('Conjured Mana Cake', 3, 6),
+    ];
+    const updatedItemsList = updateQuality(itemsList);
+    let updatedItemsHTML = '<ol>';
+    updatedItemsList.forEach((item) => {
+      updatedItemsHTML += `<li>${JSON.stringify(item)}</li>`
+    });
+    updatedItemsHTML += '</ol>';
+    expect(htmlListItems).toBe(updatedItemsHTML);
   });
 });
