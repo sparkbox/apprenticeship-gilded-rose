@@ -1,4 +1,4 @@
-import { Item } from './gilded_rose';
+import { Item, updateQuality } from './gilded_rose';
 
 const items = [
   new Item('+5 Dexterity Vest', 10, 20),
@@ -18,4 +18,4 @@ export default function getHtmlListFromArray(itemArray) {
   return htmlOutput;
 }
 
-export const htmlListItems = getHtmlListFromArray(items);
+export const htmlListItems = getHtmlListFromArray(updateQuality(items));
