@@ -166,12 +166,8 @@ describe('generating ordered lists of items', () => {
       new Item('Sulfuras, Hand of Ragnaros', 0, 80),
     ];
     const updatedItemsList = updateQuality(itemsList);
-    let updatedItemsHTML = '<ol>';
-    updatedItemsList.forEach((item) => {
-      updatedItemsHTML += `<li>${JSON.stringify(item)}</li>`;
-    });
-    updatedItemsHTML += '</ol>';
     const expectedItemsHTML = getHtmlListFromArray(updatedItemsList);
-    expect(expectedItemsHTML).toBe(updatedItemsHTML);
+    const manuallyUpdatedList = '<ol><li>{"name":"+5 Dexterity Vest","sell_in":9,"quality":19}</li><li>{"name":"Aged Brie","sell_in":1,"quality":1}</li><li>{"name":"Sulfuras, Hand of Ragnaros","sell_in":0,"quality":80}</li></ol>';
+    expect(expectedItemsHTML).toBe(manuallyUpdatedList);
   });
 });
