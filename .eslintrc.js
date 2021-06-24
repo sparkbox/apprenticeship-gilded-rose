@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   // Our test will have cleaner code than our source code...but only for now!
-  ignorePatterns: ['src/gilded_rose.js'],
+  ignorePatterns: ['src/inventory/gilded_rose.js'],
   extends: [
     'eslint-config-airbnb-base',
   ],
@@ -14,6 +14,8 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
+    'import/prefer-default-export': 'off',
+    'import/extensions': 0,
   },
   overrides: [
     {
@@ -22,6 +24,15 @@ module.exports = {
       ],
       env: {
         jest: true,
+      },
+    },
+    {
+      files: [
+        '**/src/js/homepage_items.js',
+      ],
+      env: {
+        browser: true,
+        node: true,
       },
     },
   ],
