@@ -1,4 +1,10 @@
 import { Item, updateQuality } from './gilded_rose';
+import {
+  sellInDecreasesItem,
+  handleBrie,
+  handleBackstagePass,
+  handleConjuredItem,
+} from './helpers';
 
 describe('Helper functions', () => {
   it('check if item increases as sell in decreases', () => {
@@ -27,8 +33,8 @@ describe('Helper functions', () => {
     handleBackstagePass(fiveDaysBackstagePass);
     handleBackstagePass(noDaysBackstagePass);
     // increases by one with age;
-    expect(tenDaysBackstagePass.quality).toBe(21);
-    expect(tenDaysBackstagePass.sell_in).toBe(10);
+    expect(aboveTenDaysBackstagePass.quality).toBe(21);
+    expect(aboveTenDaysBackstagePass.sell_in).toBe(10);
     // increases by 2 within 10 days of show;
     expect(tenDaysBackstagePass.quality).toBe(22);
     expect(tenDaysBackstagePass.sell_in).toBe(9);
