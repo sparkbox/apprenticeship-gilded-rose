@@ -6,7 +6,13 @@ describe('Helper functions', () => {
     const decreasingItem = new Item('Elixir of the Mongoose', 5, 7);
     expect(sellInDecreasesItem(increasingItem)).toBe(false);
     expect(sellInDecreasesItem(decreasingItem)).toBe(true);
-  } )
+  });
+  it('increases quality of Aged Brie', () => {
+    const agedBrie = new Item('Aged Brie', 2, 0);
+    handleBrie(agedBrie);
+    expect(agedBrie.quality).toBe(1);
+    expect(agedBrie.sell_in).toBe(1);
+  });
 });
 
 describe('`updateQuality`', () => {
