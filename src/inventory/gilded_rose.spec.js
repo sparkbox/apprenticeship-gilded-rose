@@ -1,5 +1,14 @@
 import { Item, updateQuality } from './gilded_rose';
 
+describe('Helper functions', () => {
+  it('check if item increases as sell in decreases', () => {
+    const increasingItem = new Item('Aged Brie', 2, 0);
+    const decreasingItem = new Item('Elixir of the Mongoose', 5, 7);
+    expect(sellInDecreasesItem(increasingItem)).toBe(false);
+    expect(sellInDecreasesItem(decreasingItem)).toBe(true);
+  } )
+});
+
 describe('`updateQuality`', () => {
   it('deprecates the sell in by one for a Haunted Shoe', () => {
     const standardItem = new Item('Haunted Shoe', 10, 10);
