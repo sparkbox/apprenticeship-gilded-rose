@@ -39,7 +39,11 @@ export function updateQuality(items) {
         if (item.quality === 0) {
           item.quality = item.quality;
         } else if (item.sell_in < 0) {
-          item.quality -= 2;
+          if(item.quality < 2) {
+            item.quality -= 1
+          } else {
+            item.quality -= 2;
+          }
         }
       }
     }
