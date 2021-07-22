@@ -34,7 +34,7 @@ export function updateQuality(items) {
       } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
         handleBackstagePass(item);
       } else if (item.name === 'Sulfuras, Hand of Ragnaros') {
-        console.log('hi')
+        console.log('hi') // do nothing;
       } else {
         if (item.quality === 0) {
           item.quality = item.quality;
@@ -45,6 +45,7 @@ export function updateQuality(items) {
             item.quality -= 2;
           }
         }
+        item.sell_in -= 1;
       }
     }
   })
