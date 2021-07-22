@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { Item, updateQuality } from './gilded_rose';
 import {
   sellInDecreasesItem,
