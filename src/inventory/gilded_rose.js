@@ -1,3 +1,5 @@
+import { handleBackstagePass, handleBrie, handleConjuredItem, sellInDecreasesItem } from "./helpers";
+
 // Item constructor. DO NOT MODIFY OR THE GOBLIN WILL EAT YOU!
 export function Item(name, sell_in, quality) {
   this.name = name;
@@ -22,49 +24,24 @@ const items = [
 updateQuality(items);
 */
 export function updateQuality(items) {
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-      if (items[i].quality > 0) {
-        if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-          items[i].quality = items[i].quality - 1
-        }
-      }
+  items.forEach((item) => {
+    if(sellInDecreasesItem(item) && item.sell_in > 0) {
+      item.sell_in -= 1;
+      item.quality -= 1;
     } else {
-      if (items[i].quality < 50) {
-        items[i].quality = items[i].quality + 1
-        if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].sell_in < 11) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-          if (items[i].sell_in < 6) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-        }
-      }
-    }
-    if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-      items[i].sell_in = items[i].sell_in - 1;
-    }
-    if (items[i].sell_in < 0) {
-      if (items[i].name != 'Aged Brie') {
-        if (items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].quality > 0) {
-            if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-              items[i].quality = items[i].quality - 1
-            }
-          }
-        } else {
-          items[i].quality = items[i].quality - items[i].quality
-        }
+      if(item.name === 'Aged Brie') {
+        handleBrie(item);
+      } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
+        handleBackstagePass(item);
+      } else if (item.name === 'Sulfuras, Hand of Ragnaros') {
+        console.log('hi')
       } else {
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
+        if (item.quality === 0) {
+          item.quality = item.quality;
+        } else if (item.sell_in < 0) {
+          item.quality -= 2;
         }
       }
     }
-  }
+  })
 }
