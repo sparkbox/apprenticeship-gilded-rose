@@ -94,4 +94,8 @@ describe('`updateQuality`', () => {
     const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
     testSellAndQual(updateQuality, sulfuras, 80, 0);
   });
+  it('Degrades Conjured items twice as fast', () => {
+    const conjuredItem = new Item('Conjured Item', 4, 10);
+    testSellAndQual(updateQuality, conjuredItem, 8, 3);
+  });
 });

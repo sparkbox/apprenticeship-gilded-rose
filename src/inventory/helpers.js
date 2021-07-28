@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 export function sellInDecreasesItem(item) {
-  return item.name !== 'Aged Brie' && item.name !== 'Backstage passes to a TAFKAL80ETC concert' && item.name !== 'Sulfuras, Hand of Ragnaros';
+  return item.name !== 'Aged Brie' && item.name !== 'Backstage passes to a TAFKAL80ETC concert' && item.name !== 'Sulfuras, Hand of Ragnaros' && !item.name.includes('Conjured');
 }
 
 function isItOver50(increase, item) {
