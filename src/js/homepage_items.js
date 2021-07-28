@@ -1,4 +1,4 @@
-import { Item, updateQuality } from '../inventory/gilded_rose.js';
+import { Item, resetQualityAndSellIn, updateQuality } from '../inventory/gilded_rose.js';
 
 const getNewItems = () => [
   new Item('+5 Dexterity Vest', 10, 20),
@@ -35,9 +35,18 @@ const bindEventListenToUpdateButton = (items) => {
   });
 };
 
+const bindEventListenToResetButton = (items) => {
+  const updateButton = document.getElementById('reset-items-button');
+  updateButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    resetQualityAndSellIn(items);
+    renderItemsOnHomepage(items);
+  });
+};
 const showItemsOnHomePage = () => {
   const items = getNewItems();
   renderItemsOnHomepage(items);
+  bindEventListenToResetButton(items);
   bindEventListenToUpdateButton(items);
 };
 

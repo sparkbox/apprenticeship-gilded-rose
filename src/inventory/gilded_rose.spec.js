@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { Item, updateQuality } from './gilded_rose';
+import { Item, updateQuality, resetQualityAndSellIn } from './gilded_rose';
 import {
   sellInDecreasesItem,
   handleBrie,
@@ -93,5 +93,22 @@ describe('`updateQuality`', () => {
   it('should not change Sulfuras at all', () => {
     const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
     testSellAndQual(updateQuality, sulfuras, 80, 0);
+  });
+});
+
+describe('Reset Inventory', () => {
+  it('Should reset all items to original sell in and quality', () => {
+    const dexter = new Item('+5 Dexterity Vest', 14, 25);
+    const agedBrie = new Item('Aged Brie', -4, 6);
+    const elixir = new Item('Elixir of the Mongoose', -2, 0);
+    const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 90);
+    const backstagePass = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 30);
+    const conjured = new Item('Conjured Mana Cake', 2, 4);
+    testSellAndQual(resetQualityAndSellIn, dexter, 20, 10);
+    testSellAndQual(resetQualityAndSellIn, agedBrie, 0, 2);
+    testSellAndQual(resetQualityAndSellIn, elixir, 7, 5);
+    testSellAndQual(resetQualityAndSellIn, sulfuras, 80, 0);
+    testSellAndQual(resetQualityAndSellIn, backstagePass, 20, 15);
+    testSellAndQual(resetQualityAndSellIn, conjured, 6, 3);
   });
 });
