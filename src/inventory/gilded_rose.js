@@ -36,7 +36,6 @@ export function updateQuality(items) {
       } else if (item.name === 'Sulfuras, Hand of Ragnaros') {
         console.log('hi') // do nothing;
       } else if (item.name.includes('Conjured')) {
-        
         handleConjuredItem(item);
       } else {
         if (item.quality === 0) {
