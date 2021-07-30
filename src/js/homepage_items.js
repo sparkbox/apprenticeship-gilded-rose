@@ -26,28 +26,20 @@ const renderItemsOnHomepage = (items) => {
   });
 };
 
-const bindEventListenToUpdateButton = (items) => {
-  const updateButton = document.getElementById('update-items-button');
-  updateButton.addEventListener('click', (e) => {
+const bindEventListenToButton = (items, buttonId, buttonActionFunction) => {
+  const button = document.getElementById(buttonId);
+  button.addEventListener('click', (e) => {
     e.preventDefault();
-    updateQuality(items);
+    buttonActionFunction(items);
     renderItemsOnHomepage(items);
   });
 };
 
-const bindEventListenToResetButton = (items) => {
-  const updateButton = document.getElementById('reset-items-button');
-  updateButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    resetQualityAndSellIn(items);
-    renderItemsOnHomepage(items);
-  });
-};
 const showItemsOnHomePage = () => {
   const items = getNewItems();
   renderItemsOnHomepage(items);
-  bindEventListenToResetButton(items);
-  bindEventListenToUpdateButton(items);
+  bindEventListenToButton(items, 'reset-items-button', resetQualityAndSellIn);
+  bindEventListenToButton(items, 'update-items-button', updateQuality);
 };
 
 showItemsOnHomePage();
