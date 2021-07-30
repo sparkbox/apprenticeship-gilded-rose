@@ -33,3 +33,18 @@ export function handleConjuredItem(item) {
   item.quality -= 2;
   item.sell_in -= 1;
 }
+
+export function handleNonUniqueItem(item) {
+  if (item.quality === 0) {
+    item.quality = 0;
+  } else if (item.sell_in < 0) {
+    if (item.quality < 2) {
+      item.quality -= 1;
+    } else {
+      item.quality -= 2;
+    }
+  } else {
+    item.quality -= 1;
+  }
+  item.sell_in -= 1;
+}

@@ -5,6 +5,7 @@ import {
   handleBrie,
   handleBackstagePass,
   handleConjuredItem,
+  handleNonUniqueItem,
 } from './helpers';
 
 function testSellAndQual(func, item, eQual, eSellIn, helper) {
@@ -14,6 +15,13 @@ function testSellAndQual(func, item, eQual, eSellIn, helper) {
 }
 
 describe('Helper functions', () => {
+  it('should decrease quality and sell_in by one for non uniqe items', () => {
+    const item = new Item('+5 Dexterity Vest', 10, 20);
+    handleNonUniqueItem(item);
+    expect(item.quality).toBe(19);
+    expect(item.sell_in).toBe(9);
+  });
+
   it('check if item increases as sell in decreases', () => {
     const increasingItem = new Item('Aged Brie', 2, 0);
     const decreasingItem = new Item('Elixir of the Mongoose', 5, 7);

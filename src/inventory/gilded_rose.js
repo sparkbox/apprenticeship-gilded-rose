@@ -1,4 +1,4 @@
-import { handleBackstagePass, handleBrie, handleConjuredItem, sellInDecreasesItem } from "./helpers.js";
+import { handleBackstagePass, handleBrie, handleConjuredItem, handleNonUniqueItem, sellInDecreasesItem } from "./helpers.js";
 
 // Item constructor. DO NOT MODIFY OR THE GOBLIN WILL EAT YOU!
 export function Item(name, sell_in, quality) {
@@ -25,9 +25,8 @@ updateQuality(items);
 */
 export function updateQuality(items) {
   items.forEach((item) => {
-    if(sellInDecreasesItem(item) && item.sell_in > 0) {
-      item.sell_in -= 1;
-      item.quality -= 1;
+    if(sellInDecreasesItem(item)) {
+      handleNonUniqueItem(item);
     } else {
       if(item.name === 'Aged Brie') {
         handleBrie(item);
@@ -37,17 +36,6 @@ export function updateQuality(items) {
         console.log('hi') // do nothing;
       } else if (item.name.includes('Conjured')) {
         handleConjuredItem(item);
-      } else {
-        if (item.quality === 0) {
-          item.quality = item.quality;
-        } else if (item.sell_in < 0) {
-          if(item.quality < 2) {
-            item.quality -= 1
-          } else {
-            item.quality -= 2;
-          }
-        }
-        item.sell_in -= 1;
       }
     }
   })
