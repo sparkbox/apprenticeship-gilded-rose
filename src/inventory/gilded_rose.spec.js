@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import { Item, updateQuality, resetQualityAndSellIn } from './gilded_rose';
 import {
-  sellInDecreasesItem,
   handleBrie,
   handleBackstagePass,
   handleConjuredItem,
@@ -20,13 +19,6 @@ describe('Helper functions', () => {
     handleNonUniqueItem(item);
     expect(item.quality).toBe(19);
     expect(item.sell_in).toBe(9);
-  });
-
-  it('check if item increases as sell in decreases', () => {
-    const increasingItem = new Item('Aged Brie', 2, 0);
-    const decreasingItem = new Item('Elixir of the Mongoose', 5, 7);
-    expect(sellInDecreasesItem(increasingItem)).toBe(false);
-    expect(sellInDecreasesItem(decreasingItem)).toBe(true);
   });
 
   it('handles conditions of Aged Brie', () => {

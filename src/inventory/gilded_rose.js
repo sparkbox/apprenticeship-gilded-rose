@@ -1,4 +1,4 @@
-import { handleBackstagePass, handleBrie, handleConjuredItem, handleNonUniqueItem, sellInDecreasesItem } from "./helpers.js";
+import { handleBackstagePass, handleBrie, handleConjuredItem, handleNonUniqueItem } from "./helpers.js";
 
 // Item constructor. DO NOT MODIFY OR THE GOBLIN WILL EAT YOU!
 export function Item(name, sell_in, quality) {
@@ -23,12 +23,20 @@ const items = [
 
 updateQuality(items);
 */
+
+export const getNewItems = () => [
+  new Item('+5 Dexterity Vest', 10, 20),
+  new Item('Aged Brie', 2, 0),
+  new Item('Elixir of the Mongoose', 5, 7),
+  new Item('Sulfuras, Hand of Ragnaros', 0, 80),
+  new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
+  new Item('Conjured Mana Cake', 3, 6),
+];
+
 export function updateQuality(items) {
-  items.forEach((item) => {
-    if(sellInDecreasesItem(item)) {
-      handleNonUniqueItem(item);
-    } else {
-      if(item.name === 'Aged Brie') {
+
+  const updatedItems = items.map((item) => {
+      if (item.name === 'Aged Brie') {
         handleBrie(item);
       } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
         handleBackstagePass(item);
@@ -36,24 +44,29 @@ export function updateQuality(items) {
         console.log('hi') // do nothing;
       } else if (item.name.includes('Conjured')) {
         handleConjuredItem(item);
+      } else {
+        handleNonUniqueItem(item);
       }
-    }
-  })
+    })
+
+  return updatedItems;
 }
 
 export function resetQualityAndSellIn(items) {
-  const originals = [
-    new Item('+5 Dexterity Vest', 10, 20),
-    new Item('Aged Brie', 2, 0),
-    new Item('Elixir of the Mongoose', 5, 7),
-    new Item('Sulfuras, Hand of Ragnaros', 0, 80),
-    new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
-    new Item('Conjured Mana Cake', 3, 6),
-  ];
+  const originals = getNewItems();
 
-  items.forEach((item) => {
-    const origItem = originals.filter(word => word.name === item.name)
-    item.quality = origItem[0].quality;
-    item.sell_in = origItem[0].sell_in;
+  const origMap = {};
+
+  originals.forEach((item) => {
+    origMap[item.name] = {quality: item.quality, sell_in: item.sell_in}
   });
+
+  const resetItems = items.map((item) => {
+    const origItem = origMap[item.name];
+    console.log(origItem)
+    item.quality = origItem.quality;
+    item.sell_in = origItem.sell_in;
+  });
+
+  return resetItems;
 }
