@@ -34,21 +34,20 @@ export const getNewItems = () => [
 ];
 
 export function updateQuality(items) {
-
   const updatedItems = items.map((item) => {
-      if (item.name === 'Aged Brie') {
+    switch (item.name) {
+      case 'Aged Brie':
         handleBrie(item);
-      } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
+        break;
+      case 'Backstage passes to a TAFKAL80ETC concert':
         handleBackstagePass(item);
-      } else if (item.name === 'Sulfuras, Hand of Ragnaros') {
-        console.log('hi') // do nothing;
-      } else if (item.name.includes('Conjured')) {
-        handleConjuredItem(item);
-      } else {
-        handleNonUniqueItem(item);
-      }
-    })
-
+        break;
+      case 'Sulfuras, Hand of Ragnaros':
+        break;
+      default:
+        item.name.toLowerCase().includes('conjured') ? handleConjuredItem(item) : handleNonUniqueItem(item);
+    } 
+  })
   return updatedItems;
 }
 

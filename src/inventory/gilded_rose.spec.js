@@ -95,7 +95,7 @@ describe('`updateQuality`', () => {
     testSellAndQual(updateQuality, sulfuras, 80, 0);
   });
   it('Degrades Conjured items twice as fast', () => {
-    const conjuredItem = new Item('Conjured Item', 4, 10);
+    const conjuredItem = new Item('Conjured Mana Cake', 4, 10);
     testSellAndQual(updateQuality, conjuredItem, 8, 3);
   });
 });
