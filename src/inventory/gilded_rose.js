@@ -63,7 +63,6 @@ export function resetQualityAndSellIn(items) {
 
   const resetItems = items.map((item) => {
     const origItem = origMap[item.name];
-    console.log(origItem)
     item.quality = origItem.quality;
     item.sell_in = origItem.sell_in;
   });
