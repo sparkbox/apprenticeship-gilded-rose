@@ -67,14 +67,62 @@ describe('`updateQuality`', () => {
     expect(standardItem.quality).toBe(50);
   });
 
-  //if not brie or bs passes, quality increases by 1 if less than 50
 
-  it('verifies that the quality of an item never increases to more than 50', () => {
-    const standardItem = new Item('Aged Brie', 5, 50);
+ 
+
+  //==================
+  //backstage passes
+  //line 33
+
+   it('increases BS pass quality by one if the quality is currently less than 50 and the sell_in is less than 11 AND IF its not BS passes', () => {
+    const standardItem = new Item('Aged Brie', 5, 48);
+    updateQuality([standardItem]);
+    expect(standardItem.quality).toBe(49);
+  });
+
+   it('increases BS pass quality by two if the quality is currently less than 50 and the sell_in is less than 11 AND if it IS BS passes', () => {
+    const standardItem = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 45);
+    updateQuality([standardItem]);
+    expect(standardItem.quality).toBe(48);
+  });
+
+  //=========================
+
+
+  //lines 53 to 66 block
+
+  //line 53 to 61
+
+  //rubber duck...explanation for line 102
+
+  it('... and sell_in is less than zero, and its not Brie, BS passes, of Sulfuras--quality will decrease by 2. Once)', () => {
+    const standardItem = new Item('Elixir of the Mongoose', -1, 50);
+    updateQuality([standardItem]);
+    expect(standardItem.sell_in).toBe(-2);
+    expect(standardItem.quality).toBe(48);
+  });
+
+
+
+
+  // 62 - 64
+
+  it('if sell_in is < 0 with quality > 0, and IS Aged Brie, quality increases by one', () => {
+    const standardItem = new Item('Aged Brie', -1, 49);
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(50);
   });
 
-  //why only running 3 tests?
+  //line 61,65
+
+  // it('if sell_in is < 0 with quality > 0, and IS Sulfuras, quality becomes quality subtracted by same quality', () => {
+  //   const standardItem = new Item('Sulfuras, Hand of Ragnaros', -1, 50);
+  //   updateQuality([standardItem]);
+  //   expect(standardItem.quality).toBe(0);
+  // });
+
+
+
+
 
 });
