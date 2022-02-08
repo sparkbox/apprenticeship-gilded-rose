@@ -150,6 +150,12 @@ describe('`updateQuality`', () => {
     expect(standardItem.quality).toBe(47);
   });
 
+  it('if is BS Passes, with quality less than 50, quality increases by three, then gets subtracted from itself', () => {
+    const standardItem = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 45);
+    updateQuality([standardItem]);
+    expect(standardItem.quality).toBe(0);
+  });
+
 
 
 
