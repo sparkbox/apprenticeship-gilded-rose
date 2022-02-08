@@ -36,12 +36,6 @@ describe('`updateQuality`', () => {
   //======================
 
 
-  //the quality of an item is never negative
-  //use one real item? or test for every real item? 
-  //NOT aged brie--it only goes up
-  //NOT sulfuras--it does NOT decrease
-  //idk about backstage passes
-
   //if quality is already 0, deprecation stops!  
   //quality stays 0
 
@@ -51,14 +45,8 @@ describe('`updateQuality`', () => {
     expect(standardItem.quality).toBe(0);
   });
 
+
   //trying to cover some lines below 33
-  //quality of an item is never more than 50
-
-  //it('verifies that if the qulity of an  incrementing-quality-item is already 50, that it stays 50 and does not go beyond')
-
-  //why highlight?
-
-  //run coverage in chrome...
 
 
   it('verifies that the quality of an item never increases to more than 50', () => {
@@ -86,14 +74,11 @@ describe('`updateQuality`', () => {
     expect(standardItem.quality).toBe(48);
   });
 
-  //=========================
+  //===================
 
-
-  //lines 53 to 66 block
 
   //line 53 to 61
 
-  //rubber duck...explanation for line 102
 
   it('... and sell_in is less than zero, and its not Brie, BS passes, of Sulfuras--quality will decrease by 2. Once)', () => {
     const standardItem = new Item('Elixir of the Mongoose', -1, 50);
@@ -105,7 +90,7 @@ describe('`updateQuality`', () => {
 
 
 
-  // 62 - 64 ... why not 65??
+  // 62 - 64 
 
   it('if sell_in is < 0 with quality > 0, and IS Aged Brie, quality increases by one', () => {
     const standardItem = new Item('Aged Brie', -1, 49);
@@ -116,7 +101,7 @@ describe('`updateQuality`', () => {
   
   //sulfuras will always be 50
 
-  it('if sell_in is < 0 with quality > 0, and IS Sulfuras, quality becomes quality subtracted by same quality', () => {
+  it('sulphuras quality never changes', () => {
     const standardItem = new Item('Sulfuras, Hand of Ragnaros', -1, 50);
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(50);
@@ -124,27 +109,45 @@ describe('`updateQuality`', () => {
 
   //61, can't be sulfuras to hit 61
 
-  it('if sell_in is < 0 with quality > 0, and IS Sulfuras, quality becomes quality subtracted by same quality', () => {
+  it('if sell_in is < 0 with quality > 0, and IS NOT Sulfuras, Brie, or BS passes, quality decreases by two', () => {
     const standardItem = new Item('Elixir of the Mongoose', -1, 50);
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(48);
   });
 
+  it('if sell_in is < 0 with quality > 0, and IS NOT Sulfuras, Brie, or BS passes, sell_in decreases by one', () => {
+    const standardItem = new Item('Elixir of the Mongoose', -1, 50);
+    updateQuality([standardItem]);
+    expect(standardItem.sell_in).toBe(-2);
+  });
+
   //must refute line 56 to access line 62
   //62
+  //=============
 
-  it('if sell_in is < 0 with quality > 0, and IS Sulfuras, quality becomes quality subtracted by same quality', () => {
+  it('if sell_in is < 0 with quality > 0, and IS BS passes, quality becomes quality subtracted by same quality', () => {
     const standardItem = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 50);
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(0);
   });
 
+  //this may be a duplicate
+  it('if sell_in is < 0 with quality > 0, and IS BS passes, sell_in decreases by 1', () => {
+    const standardItem = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 50);
+    updateQuality([standardItem]);
+    expect(standardItem.sell_in).toBe(-2);
+  });
+
+  //===============
+
   //66
 
-  it('if sell_in is < 0 with quality > 0, and IS Sulfuras, quality becomes quality subtracted by same quality', () => {
+  ///if anything but Sulfuras, sell_in at least decreases by 1
+
+  it('if is Brie with quality less than 50, quality increases by two', () => {
     const standardItem = new Item('Aged Brie', -1, 45);
     updateQuality([standardItem]);
-    expect(standardItem.quality).toBe(49);
+    expect(standardItem.quality).toBe(47);
   });
 
 
