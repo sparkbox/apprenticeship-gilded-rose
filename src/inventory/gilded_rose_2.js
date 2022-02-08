@@ -24,29 +24,26 @@ export function Item(name, sell_in, quality) {
   export function updateQuality(items) {
     //use human words!!
     for (var i = 0; i < items.length; i++) {
+         if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
+              items[i].sell_in = items[i].sell_in - 1;
       //if NOT Brie or BS Passes OR sulfurus
-      if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert' && items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        if (items[i].quality > 0) {
-            items[i].quality = items[i].quality - 1
-    
-        }
-      } else {
-        //if IS Brie or BS Passes
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
-          if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-            // I combined the 2 sell_in req, made + 2
-            if (items[i].sell_in < 11) {
-                items[i].quality = items[i].quality + 2
+            if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+                if (items[i].quality > 0) {
+                    items[i].quality = items[i].quality - 1
+            
+                }
+            } else {
+                //if IS Brie or BS Passes
+                if (items[i].quality < 50) {
+                items[i].quality = items[i].quality + 1
+                if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
+                    // I combined the 2 sell_in req, made + 2
+                    if (items[i].sell_in < 11) {
+                        items[i].quality = items[i].quality + 2
+                    }
+                }
+                }
             }
-          }
-        }
-      }
-      //If not Sulfuras, sell_in - 1
-      if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        // items[i].sell_in = items[i].sell_in - 1;
-        items[i].sell_in = decreaseSell(items[i].sell_in);
-      }
       //If sell_in < 0
       if (items[i].sell_in < 0) {
         //If NOT Brie
@@ -71,16 +68,15 @@ export function Item(name, sell_in, quality) {
         }
       }
     }
+    }
   }
   
-  const decreaseSell = (currentSellIn) => {
-   return currentSellIn - 1;
-  };
+//   const decreaseSell = (currentSellIn) => {
+//    return currentSellIn - 1;
+//   };
 
-//   const belowFiftyPlusOne = () => {
-//       return  
-//       }
-//   }
+//     items[i].sell_in = decreaseSell(items[i].sell_in);
+
 
 
 
