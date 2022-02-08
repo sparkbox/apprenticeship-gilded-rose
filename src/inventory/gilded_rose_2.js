@@ -24,12 +24,11 @@ export function Item(name, sell_in, quality) {
   export function updateQuality(items) {
     //use human words!!
     for (var i = 0; i < items.length; i++) {
-      //if not Brie or BS Passes
-      if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+      //if NOT Brie or BS Passes
+      if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert' && items[i].name != 'Sulfuras, Hand of Ragnaros') {
         if (items[i].quality > 0) {
-          if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
             items[i].quality = items[i].quality - 1
-          }
+    
         }
       } else {
         //if IS Brie or BS Passes
