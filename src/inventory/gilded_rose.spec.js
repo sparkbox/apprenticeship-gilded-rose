@@ -18,7 +18,7 @@ describe('`updateQuality`', () => {
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(0);
   });
-
+     
   it('Quality degrades twice as fast when sell_in is below 0', () => {
     const standardItem = new Item('Wooden sword', -5, 8);
     updateQuality([standardItem]);
