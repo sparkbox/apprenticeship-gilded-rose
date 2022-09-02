@@ -21,50 +21,48 @@ const items = [
 
 updateQuality(items);
 */
-export function updateQuality(items) {
+
+const qualityStrategies = {
+  "Aged Brie": item => Math.min(50, calcNextQuality(item, 1)),
+  "Backstage passes to a TAFKAL80ETC concert": item => Math.min(50,getTicketQuality(item)),
+  "Sulfuras, Hand of Ragnaros": item => item.quality,
+  "default": item => Math.max(0, calcNextQuality(item, -1))
+}
+
+function calcNextSellIn(item) {
+  if(item.name != "Sulfuras, Hand of Ragnaros"){
+    return item.sell_in - 1;
+  }
+  return item.sell_in;
+}
+
+//Most items follow this logic, with just changed values.
+function calcNextQuality(item, change) {
+  if(item.sell_in >= 0) {
+    return item.quality + change;
+  }
+  else {
+    return item.quality + change * 2;
+  }
+}
+
+//Tickets have enough conditionals to merit a named function.
+//Normally I'd use subclasses/polymorphism for this, but...goblins.
+function getTicketQuality(item) {
+  if(item.sell_in <= 10 && item.sell_in >=0) {
+    return item.quality + 2;
+  }
+  if(item.sell_in > 10) {
+    return item.quality + 1;
+  }
+  return 0;
+}
+
+export function updateItems(items) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-      if (items[i].quality > 0) {
-        if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-          items[i].quality = items[i].quality - 1
-        }
-      }
-    } else {
-      if (items[i].quality < 50) {
-        items[i].quality = items[i].quality + 1
-        if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].sell_in < 11) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-          if (items[i].sell_in < 6) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-        }
-      }
-    }
-    if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-      items[i].sell_in = items[i].sell_in - 1;
-    }
-    if (items[i].sell_in < 0) {
-      if (items[i].name != 'Aged Brie') {
-        if (items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].quality > 0) {
-            if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-              items[i].quality = items[i].quality - 1
-            }
-          }
-        } else {
-          items[i].quality = items[i].quality - items[i].quality
-        }
-      } else {
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
-        }
-      }
-    }
+    items[i].sell_in = calcNextSellIn(items[i]);
+
+    const calcNextQuality = qualityStrategies[item.name] || qualityStrategies["default"];
+    items[i].quality = calcNextQuality(items[i]);
   }
 }
