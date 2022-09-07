@@ -62,7 +62,7 @@ export function updateItems(items) {
   for (var i = 0; i < items.length; i++) {
     items[i].sell_in = calcNextSellIn(items[i]);
 
-    const calcNextQuality = qualityStrategies[item.name] || qualityStrategies["default"];
-    items[i].quality = calcNextQuality(items[i]);
+    const calcQuality = qualityStrategies[items[i].name] || qualityStrategies["default"];
+    items[i].quality = calcQuality(items[i]);
   }
 }
