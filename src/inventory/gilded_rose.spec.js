@@ -86,4 +86,23 @@ describe('`updateItems`', () => {
     updateItems([ticketItem]);
     expect(ticketItem.quality).toBe(0);
   });
+
+  // The Conjured Mana Cake decreases in quality twice as fast as other items
+  it('decreases in quality by 2 when sell_in >= 0', () => {
+    const conjuredItem = new Item('Conjured Mana Cake', 10, 10);
+    updateItems([conjuredItem]);
+    expect(conjuredItem.quality).toBe(8);
+  });
+
+  it('decreases in quality by 4 when sell_in < 0', () => {
+    const conjuredItem = new Item('Conjured Mana Cake', 0, 10);
+    updateItems([conjuredItem]);
+    expect(conjuredItem.quality).toBe(6);
+  });
+
+  it('cannot have a quality below 0', () => {
+    const conjuredItem = new Item('Conjured Mana Cake', 0, 0);
+    updateItems([conjuredItem]);
+    expect(conjuredItem.quality).toBe(0);
+  });
 });
