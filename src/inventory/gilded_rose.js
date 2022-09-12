@@ -22,47 +22,59 @@ const items = [
 updateQuality(items);
 */
 
-const qualityStrategies = {
-  "Aged Brie": item => Math.min(50, calcNextQuality(item, 1)),
-  "Backstage passes to a TAFKAL80ETC concert": item => Math.min(50,getTicketQuality(item)),
-  "Sulfuras, Hand of Ragnaros": item => item.quality,
-  "default": item => Math.max(0, calcNextQuality(item, -1))
+//Quality Strategies & strategies object
+const updateQuality = (name) => ({
+  "Aged Brie": cheeseUpdate,
+  "Backstage passes to a TAFKAL80ETC concert": ticketUpdate,
+  "Sulfuras, Hand of Ragnaros": legendaryUpdate,
+  "default": defaultUpdate
+});
+
+function cheeseUpdate(item) {
+  let change = (item.sell_in < 0 ? 2 : 1);
+  return max(50, item.quality + change);
 }
 
-function calcNextSellIn(item) {
+function legendaryUpdate(item) {
+  return item.quality;
+}
+
+function ticketUpdate(item) {
+  let change = 0;
+  if(item.sell_in <= 10 && item.sell_in >=0) {
+    change = 2
+  }
+  else if(item.sell_in > 10) {
+    change = 1;
+  }
+  else {
+    change = -50;
+  }
+  return clampQuality(item.quality + change);
+}
+
+function defaultUpdate(item) {
+  let change = (item.sell_in < 0 ? -2 : -1);
+  return clampQuality(item.quality + change);
+}
+
+//Sell-in updates
+function updateSellIn(item) {
   if(item.name != "Sulfuras, Hand of Ragnaros"){
     return item.sell_in - 1;
   }
   return item.sell_in;
 }
 
-//Most items follow this logic, with just changed values.
-function calcNextQuality(item, change) {
-  if(item.sell_in >= 0) {
-    return item.quality + change;
-  }
-  else {
-    return item.quality + change * 2;
-  }
+//Helpers
+function clampQuality(quality) {
+  return max(0,min(50,quality));
 }
 
-//Tickets have enough conditionals to merit a named function.
-//Normally I'd use subclasses/polymorphism for this, but...goblins.
-function getTicketQuality(item) {
-  if(item.sell_in <= 10 && item.sell_in >=0) {
-    return item.quality + 2;
-  }
-  if(item.sell_in > 10) {
-    return item.quality + 1;
-  }
-  return 0;
-}
-
+//Select sell-in, quality strategies
 export function updateItems(items) {
-  for (var i = 0; i < items.length; i++) {
-    items[i].sell_in = calcNextSellIn(items[i]);
-
-    const calcQuality = qualityStrategies[items[i].name] || qualityStrategies["default"];
-    items[i].quality = calcQuality(items[i]);
-  }
+  items.map((item) => {
+    item.sell_in = updateSellIn(item);
+    item.quality = updateQuality[item.name](item); //selects function based on name
+  });
 }
