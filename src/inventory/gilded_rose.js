@@ -27,6 +27,7 @@ const updateStrategies = {
   "Aged Brie": cheeseUpdate,
   "Backstage passes to a TAFKAL80ETC concert": ticketUpdate,
   "Sulfuras, Hand of Ragnaros": legendaryUpdate,
+  "Conjured Mana Cake": conjuredUpdate,
   "default": defaultUpdate
 };
 
@@ -50,6 +51,11 @@ function ticketUpdate(item) {
   else {
     change = -50;
   }
+  return clampQuality(item.quality + change);
+}
+
+function conjuredUpdate(item){
+  let change = (item.sell_in < 0 ? -4 : -2);
   return clampQuality(item.quality + change);
 }
 
