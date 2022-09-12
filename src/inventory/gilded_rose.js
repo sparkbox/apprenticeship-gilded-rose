@@ -23,16 +23,16 @@ updateQuality(items);
 */
 
 //Quality Strategies & strategies object
-const updateQuality = (name) => ({
+const updateStrategies = {
   "Aged Brie": cheeseUpdate,
   "Backstage passes to a TAFKAL80ETC concert": ticketUpdate,
   "Sulfuras, Hand of Ragnaros": legendaryUpdate,
   "default": defaultUpdate
-});
+};
 
 function cheeseUpdate(item) {
   let change = (item.sell_in < 0 ? 2 : 1);
-  return max(50, item.quality + change);
+  return clampQuality(item.quality + change);
 }
 
 function legendaryUpdate(item) {
@@ -68,13 +68,14 @@ function updateSellIn(item) {
 
 //Helpers
 function clampQuality(quality) {
-  return max(0,min(50,quality));
+  return Math.max(0,Math.min(50,quality));
 }
 
 //Select sell-in, quality strategies
 export function updateItems(items) {
   items.map((item) => {
     item.sell_in = updateSellIn(item);
-    item.quality = updateQuality[item.name](item); //selects function based on name
+    let updateQuality = updateStrategies[item.name] || updateStrategies["default"];
+    item.quality = updateQuality(item);
   });
 }
