@@ -55,4 +55,10 @@ describe('`updateQuality`', () => {
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(50);
   });
+
+  it('Conjured items should degrade twice as fast.', () => {
+    const standardItem = new Item('Conjured Rye', 5, 20);
+    updateQuality([standardItem]);
+    expect(standardItem.quality).toBe(18);
+  });
 });

@@ -48,8 +48,7 @@ function isBackstagePass(item) {
 };
 
 function keepItemQualityWithinRange(itemQuality) {
-  const min = 0;
-  const max = 50;
+  const min = 0, max = 50;
   return Math.min(Math.max(itemQuality, min), max);
 };
 
@@ -65,6 +64,9 @@ function determineItemQuality(item, improvesWithAge) {
     // Quality degrades by 1 as default, only if it doesn't improve with age.
     item.quality -= 1;
   }
+
+  // Degrade quality twice as fast if the item has conjured in its name
+  if (item.name.toLowerCase().includes('conjured')) item.quality -= 1;
 
   // Quality has a max of 50 and cannot be negative.
   item.quality = keepItemQualityWithinRange(item.quality);
