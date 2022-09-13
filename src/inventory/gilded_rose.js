@@ -21,50 +21,102 @@ const items = [
 
 updateQuality(items);
 */
+
+const qualityIncWithAge = ['Aged Brie'];
+const qualityIncFastAsExpiring = ['Backstage passes to a TAFKAL80ETC concert'];
+const constantQuality = ['Sulfuras, Hand of Ragnaros'];
+
+const qualityUpdater = (item, change_Amount) => {
+  if (item.quality === 0) {
+    return;
+  }
+  if (item.sell_in > 0 && item.quality > 0 && item.quality <= 50) {
+    item.quality = item.quality + change_Amount;
+    return;
+  }
+  item.quality = item.quality + 2 * change_Amount;
+};
+
+const itemExpired = (item) => {
+  if (item.sell_in < 0) {
+    return true;
+  }
+};
+
+const sell_inDefault = (item) => {
+  item.sell_in = item.sell_in - 1;
+};
+
+//for Aged Brie
+const agedBrieUpdater = (item) => {
+  sell_inDefault(item);
+  item.quality = item.quality + 1;
+};
+
+//for Backstage Pass
+const backstagePassUpdater = (item) => {
+  // if (item.quality < 50) {
+  if (item.sell_in < 6) {
+    qualityUpdater(item, 3);
+  } else if (item.sell_in < 11) {
+    qualityUpdater(item, 2);
+  } else {
+    qualityUpdater(item, 1);
+  }
+};
+
+// }
+
+//for any item
+const defaultItemUpdater = (item) => {
+  if (!qualityIncWithAge && !qualityIncFastAsExpiring && !constantQuality) {
+    item.quality = item.quality - 1;
+  }
+};
+
 export function updateQuality(items) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-      if (items[i].quality > 0) {
-        if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-          items[i].quality = items[i].quality - 1
-        }
-      }
-    } else {
-      if (items[i].quality < 50) {
-        items[i].quality = items[i].quality + 1
-        if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].sell_in < 11) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-          if (items[i].sell_in < 6) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-        }
-      }
+    const item = items[i];
+
+    //update quality for Aged Brie
+    if (item.name === 'Aged Brie') {
+      //update aged brie here
+      agedBrieUpdater(item);
+      //stop here and go to next item in array,
+      continue;
     }
-    if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-      items[i].sell_in = items[i].sell_in - 1;
+
+    //update quality for Backstage Pass
+    if (!qualityIncFastAsExpiring.includes(item.name)) {
+      if (!constantQuality.includes(item.name)) {
+        qualityUpdater(item, -1);
+      }
+    } else if (item.quality < 50) {
+      backstagePassUpdater(item);
     }
-    if (items[i].sell_in < 0) {
-      if (items[i].name != 'Aged Brie') {
-        if (items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].quality > 0) {
-            if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-              items[i].quality = items[i].quality - 1
-            }
-          }
-        } else {
-          items[i].quality = items[i].quality - items[i].quality
+
+    //update quality for Default Item
+    if (!constantQuality.includes(item.name)) {
+      sell_inDefault(item);
+    }
+
+    //where items expire
+    if (itemExpired(item)) {
+      if (!qualityIncWithAge.includes(item.name)) {
+        if (qualityIncFastAsExpiring.includes(item.name)) {
+          //backstage passes go to zero after concert
+          item.quality = item.quality - item.quality;
         }
+        //condition for when it IS Sufuras
+      } else if (constantQuality.includes(item.name)) {
+        return; //return nothing: no quality change for him
       } else {
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
-        }
+        qualityUpdater(item, -1);
       }
     }
+
+    //closes for loop
   }
+
+  //updateQuality() outermost function bracket
 }
