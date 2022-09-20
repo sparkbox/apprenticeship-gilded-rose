@@ -27,24 +27,24 @@ const renderItemsOnHomepage = (items) => {
 };
 
 const getItemsFromStorage = () => {
-  const result = localStorage.getItem("inventory");
-  if(result) {
+  const result = localStorage.getItem('inventory');
+  if (result) {
     return JSON.parse(result);
   }
   return getNewItems();
-}
+};
 
 const setItemstoStorage = (items) => {
   const stringItems = JSON.stringify(items);
-  localStorage.setItem("inventory", stringItems);
-}
+  localStorage.setItem('inventory', stringItems);
+};
 
 const bindEventListenToUpdateButton = () => {
   const updateButton = document.getElementById('update-items-button');
   updateButton.addEventListener('click', (e) => {
     e.preventDefault();
     const newItems = updateItems(getItemsFromStorage());
-    console.log("Running...");
+    console.log('Running...');
     renderItemsOnHomepage(newItems);
     setItemstoStorage(newItems);
   });
