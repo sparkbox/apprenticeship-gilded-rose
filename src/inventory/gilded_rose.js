@@ -77,11 +77,15 @@ function clampQuality(quality) {
   return Math.max(0,Math.min(50,quality));
 }
 
-//Select sell-in, quality strategies
+//Select sell-in, quality strategiess
 export function updateItems(items) {
-  items.map((item) => {
+  const updatedItems = JSON.parse(JSON.stringify(items));
+
+  updatedItems.map((item) => {
     item.sell_in = updateSellIn(item);
     let updateQuality = updateStrategies[item.name] || updateStrategies["default"];
     item.quality = updateQuality(item);
   });
+
+  return updatedItems;
 }
